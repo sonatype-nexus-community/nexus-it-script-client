@@ -33,8 +33,6 @@ public class ScriptRunnerTest
     server.enqueue(new MockResponse().setBody("200"));
 
     String scriptPath = "/service/rest/v1/script";
-    server.url(scriptPath);
-
     String script = "println 'hello world'";
     ScriptRunner underTest = new ScriptRunner(server.getHostName(), server.getPort(), "admin", "admin123");
     ScriptResult scriptResult = underTest.execute(script);
