@@ -32,7 +32,7 @@ public class ScriptRunnerTest
     server.enqueue(new MockResponse().setBody("200"));
     server.enqueue(new MockResponse().setBody("200"));
 
-    String scriptPath = "/v1/script";
+    String scriptPath = "/service/rest/v1/script";
     server.url(scriptPath);
 
     String script = "println 'hello world'";
