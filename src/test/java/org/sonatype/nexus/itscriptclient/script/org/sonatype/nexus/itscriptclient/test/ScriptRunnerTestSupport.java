@@ -10,17 +10,27 @@
  * of Sonatype, Inc. Apache Maven is a trademark of the Apache Software Foundation. M2eclipse is a trademark of the
  * Eclipse Foundation. All other trademarks are the property of their respective owners.
  */
-package org.sonatype.nexus.itscriptclient.script;
+package org.sonatype.nexus.itscriptclient.script.org.sonatype.nexus.itscriptclient.test;
 
-public class ScriptResult
+import okhttp3.mockwebserver.MockWebServer;
+import org.junit.After;
+import org.junit.Before;
+
+public class ScriptRunnerTestSupport
 {
-  private final String scriptName;
+  protected static final String POST = "POST";
 
-  public ScriptResult(final String scriptName) {
-    this.scriptName = scriptName;
+  protected MockWebServer server;
+
+  @Before
+  public void setup() throws Exception {
+    server = new MockWebServer();
+
+    server.start();
   }
 
-  public String getScriptName() {
-    return scriptName;
+  @After
+  public void tearDown() throws Exception {
+    server.shutdown();
   }
 }
