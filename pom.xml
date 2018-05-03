@@ -68,6 +68,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <skipITs>true</skipITs>
+        </configuration>
       </plugin>
     </plugins>
   </build>
