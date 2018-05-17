@@ -24,7 +24,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.json.simple.JSONObject;
-import sun.font.ScriptRun;
 
 import static java.lang.String.format;
 import static okhttp3.Credentials.basic;
@@ -62,9 +61,9 @@ public class ScriptRunner
 
     String scriptName = addScript(script, client);
 
-    runScript(scriptName, client);
+    String response = runScript(scriptName, client);
 
-    return new ScriptResult(scriptName);
+    return new ScriptResult(scriptName, response);
   }
 
   private String addScript(final String script, final OkHttpClient client) {
@@ -86,7 +85,7 @@ public class ScriptRunner
     return scriptName;
   }
 
-  private void runScript(final String scriptName, final OkHttpClient client) {
+  private String runScript(final String scriptName, final OkHttpClient client) {
     String runPath = format("%s/%s/run", url, scriptName);
 
     RequestBody body = RequestBody.create(TEXT, "");
@@ -96,15 +95,17 @@ public class ScriptRunner
         .post(body)
         .build();
 
-    executeCall(client, request);
+    return executeCall(client, request);
   }
 
-  private void executeCall(final OkHttpClient client, final Request request) {
+  private String executeCall(final OkHttpClient client, final Request request) {
     try {
       Response response = client.newCall(request)
           .execute();
+      String responseMessage = response.body().string();
       response.close();
       validateResponse(response);
+      return responseMessage;
     }
     catch (IOException e) {
       throw new RuntimeException(e);

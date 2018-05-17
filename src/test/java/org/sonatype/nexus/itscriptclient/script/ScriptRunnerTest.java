@@ -29,13 +29,15 @@ public class ScriptRunnerTest
 {
   @Test
   public void executeScript() throws Exception {
-    server.enqueue(new MockResponse().setBody("200"));
-    server.enqueue(new MockResponse().setBody("200"));
+    server.enqueue(new MockResponse());
+    server.enqueue(new MockResponse().setBody("test response"));
 
     String scriptPath = "/service/rest/v1/script";
     String script = "println 'hello world'";
     ScriptRunner underTest = new ScriptRunner(server.getHostName(), server.getPort(), "admin", "admin123");
     ScriptResult scriptResult = underTest.execute(script);
+
+    assertThat(scriptResult.getResponse(), is("test response"));
 
     RecordedRequest addScriptRequest = server.takeRequest(10, MILLISECONDS);
 
