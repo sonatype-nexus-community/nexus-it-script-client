@@ -18,7 +18,6 @@ import static org.sonatype.nexus.itscriptclient.blobs.BlobStore.CREATE_BLOB;
 @RunWith(MockitoJUnitRunner.class)
 public class BlobStoreTest
 {
-
   private static final String BLOBNAME = "fooBar";
 
   @Mock
