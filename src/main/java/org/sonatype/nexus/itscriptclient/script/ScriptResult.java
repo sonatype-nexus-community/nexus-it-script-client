@@ -16,11 +16,18 @@ public class ScriptResult
 {
   private final String scriptName;
 
-  public ScriptResult(final String scriptName) {
+  private final String response;
+
+  public ScriptResult(final String scriptName, final String response) {
     this.scriptName = scriptName;
+    this.response = response;
   }
 
   public String getScriptName() {
     return scriptName;
+  }
+
+  public String getResponse() {
+    return response;
   }
 }
