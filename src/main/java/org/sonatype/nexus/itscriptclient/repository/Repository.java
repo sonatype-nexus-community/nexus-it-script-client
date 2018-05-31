@@ -12,27 +12,41 @@
  */
 package org.sonatype.nexus.itscriptclient.repository;
 
+import java.io.IOException;
+
 import org.sonatype.nexus.itscriptclient.script.ScriptResult;
 import org.sonatype.nexus.itscriptclient.script.ScriptRunner;
 
+import org.testcontainers.shaded.com.google.common.io.Resources;
+
 import static java.lang.String.format;
+import static java.nio.charset.Charset.defaultCharset;
 
 /**
  * Scripts for interacting with to RepositoryApi 
  */
 public class Repository
 {
-  static final String PROXY_SCRIPT_PATTERN = "import org.sonatype.nexus.repository.storage.WritePolicy" +
-      "\nrepository.createRepository(repository.createProxy('%s', '%s', '%s', '%s', %b))";
+  static final String PROXY_SCRIPT_PATTERN;
 
-  static final String HOSTED_SCRIPT_PATTERN = "import org.sonatype.nexus.repository.storage.WritePolicy" +
-      "\nrepository.createRepository(repository.createHosted('%s', '%s', '%s', %s, %b))";
+  static final String HOSTED_SCRIPT_PATTERN;
 
-  static final String GROUP_SCRIPT_PATTERN = "repository.createRepository(repository.createGroup('%s', '%s', '%s', %s))";
+  static final String GROUP_SCRIPT_PATTERN;
 
   static final String WRITE_POLICY = "WritePolicy.ALLOW";
 
   private final ScriptRunner scriptRunner;
+
+  static {
+    try {
+      PROXY_SCRIPT_PATTERN = Resources.toString(Repository.class.getResource("create_proxy.groovy"), defaultCharset());
+      HOSTED_SCRIPT_PATTERN = Resources.toString(Repository.class.getResource("create_hosted.groovy"), defaultCharset());
+      GROUP_SCRIPT_PATTERN = Resources.toString(Repository.class.getResource("create_group.groovy"), defaultCharset());
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Unable to read in resource");
+    }
+  }
 
   public Repository(final ScriptRunner scriptRunner) {
     this.scriptRunner = scriptRunner;

@@ -1,16 +1,27 @@
 package org.sonatype.nexus.itscriptclient.realms;
 
+import java.io.IOException;
+
 import org.sonatype.nexus.itscriptclient.script.ScriptRunner;
+
+import org.testcontainers.shaded.com.google.common.io.Resources;
+
+import static java.nio.charset.Charset.defaultCharset;
 
 public class Realm
 {
-  static final String ENABLE_REALM =
-      "import org.sonatype.nexus.security.realm.RealmManager" +
-      "\n" +
-      "\nrealmManager = container.lookup(RealmManager.class.getName())" +
-      "\nrealmManager.enableRealm('%s', %b)";
+  static final String ENABLE_REALM;
 
   private final ScriptRunner scriptRunner;
+
+  static {
+    try {
+      ENABLE_REALM = Resources.toString(Realm.class.getResource("enable_realm.groovy"), defaultCharset());
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Unable to read in resource");
+    }
+  }
 
   public Realm(final ScriptRunner scriptRunner) {
     this.scriptRunner = scriptRunner;
