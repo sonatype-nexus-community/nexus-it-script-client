@@ -22,6 +22,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static java.lang.String.format;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
@@ -58,7 +59,7 @@ public class RepositoryTest
     ScriptResult scriptResult = repository
         .createProxy(name, recipeName, remoteUrl, blobStoreName, strictContentTypeValidation);
 
-    assertTrue(scriptResult != null);
+    assertNotNull(scriptResult);
 
     String script =
         format(PROXY_SCRIPT_PATTERN, name, recipeName, remoteUrl, blobStoreName, strictContentTypeValidation);
@@ -78,7 +79,7 @@ public class RepositoryTest
     ScriptResult scriptResult = repository
         .createHosted(name, recipeName, blobStoreName, strictContentTypeValidation);
 
-    assertTrue(scriptResult != null);
+    assertNotNull(scriptResult);
 
     String script =
         format(HOSTED_SCRIPT_PATTERN, name, recipeName, blobStoreName, WRITE_POLICY, strictContentTypeValidation);
@@ -97,7 +98,7 @@ public class RepositoryTest
     ScriptResult scriptResult = repository
         .createGroup(name, recipeName, blobStoreName, "member1", "member2");
 
-    assertTrue(scriptResult != null);
+    assertNotNull(scriptResult);
 
     String script =
         format(GROUP_SCRIPT_PATTERN, name, recipeName, blobStoreName, "'member1','member2'");
