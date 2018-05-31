@@ -19,8 +19,22 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.sonatype.nexus</groupId>
-  <artifactId>nexus-it-script-client</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>nxrm-it-script-client</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+
+  <name>NXRM IT Script Client</name>
+  <description>Provides infrastructure for integration testing community provided plugins for NXRM</description>
+  <url>https://github.com/sonatype-nexus-community/nexus-it-script-client</url>
+
+  <licenses>
+    <license>
+      <name>Eclipse Public License, Version 1.0</name>
+      <url>https://github.com/sonatype-nexus-community/nexus-it-script-client/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  
   <build>
     <plugins>
       <plugin>
@@ -129,8 +143,8 @@
 
     <dependency>
       <groupId>org.sonatype.nexus</groupId>
-      <artifactId>community-it-support</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <artifactId>nxrm-community-it-support</artifactId>
+      <version>1.0</version>
     </dependency>
   </dependencies>
 </project>
